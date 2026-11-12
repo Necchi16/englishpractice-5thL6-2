@@ -250,10 +250,10 @@
       const handleBtn = (key, isDown) => gameData.current.keys[key] = isDown;
 
       return (
-        <div className="flex flex-col items-center bg-gray-900 w-full h-full touch-none relative">
-          <div className="absolute top-4 left-0 right-0 flex justify-between px-6 z-20 pointer-events-none">
-            <div className="text-2xl font-bold text-white bg-gray-800/80 px-6 py-2 rounded-full border-2 border-gray-600 backdrop-blur">⏳ {timeLeft}</div>
-            <div className="text-2xl font-bold text-yellow-400 bg-gray-800/80 px-6 py-2 rounded-full border-2 border-gray-600 backdrop-blur">🪙 {score}</div>
+        <div className="flex flex-col items-center bg-gray-900 w-full flex-1 touch-none relative">
+          <div className="absolute top-4 left-0 right-0 flex justify-end gap-4 px-6 z-20 pointer-events-none">
+            <div className="text-xl font-bold text-white bg-gray-800/80 px-4 py-2 rounded-full border-2 border-gray-600 backdrop-blur">⏳ {timeLeft}</div>
+            <div className="text-xl font-bold text-yellow-400 bg-gray-800/80 px-4 py-2 rounded-full border-2 border-gray-600 backdrop-blur">🪙 {score}</div>
           </div>
           <div className="flex-1 w-full overflow-hidden bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] bg-sky-200 relative border-b-4 border-gray-700" ref={containerRef}></div>
           <div className="h-48 w-full bg-gray-800 flex items-center justify-center shrink-0">
@@ -1037,20 +1037,18 @@
       }
       else if (step === 'GAME') {
          content = (
-           <div className="min-h-screen bg-gray-900 flex flex-col relative touch-none">
+           <div className="fixed inset-0 bg-gray-900 flex flex-col touch-none">
               <div className="absolute top-4 left-4 z-50">
-                <button onClick={() => { setStep('HOME'); setStepHistory(['HOME']); }} className="bg-gray-800/80 text-white px-6 py-3 rounded-full font-bold border-2 border-white/50 backdrop-blur shadow-lg">
-                  ✖ ホームにもどる
+                <button onClick={() => { setStep('HOME'); setStepHistory(['HOME']); }} className="bg-gray-800/80 text-white px-4 py-2 rounded-full font-bold border-2 border-white/50 backdrop-blur shadow-lg text-sm">
+                  ◀ ホーム
                 </button>
               </div>
-              <div className="flex-1 w-full flex items-center justify-center">
-                <TwoDCoinGame playerEmoji={currentStage.emoji} helpers={helpers} onFinish={(coins) => {
-                  saveProgress(totalCoins + coins, items, level, exp, helpers);
-                  setCanPlayGame(false); 
-                  setStep('HOME');
-                  setStepHistory(['HOME']);
-                }} />
-              </div>
+              <TwoDCoinGame playerEmoji={currentStage.emoji} helpers={helpers} onFinish={(coins) => {
+                saveProgress(totalCoins + coins, items, level, exp, helpers);
+                setCanPlayGame(false); 
+                setStep('HOME');
+                setStepHistory(['HOME']);
+              }} />
            </div>
          );
       }
